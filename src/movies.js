@@ -74,34 +74,44 @@ function orderAlphabetically(moviesArray) {
 }
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
-
-function decodeDuration(durationString, timeUnit) {
+function getHours(string) {
   let output;
-  let spaceIndex = durationString.indexOf(" ");
-  if (timeUnit === "h") {
-    if (durationString.includes(" ")) {
-      cut = durationString.slice(0, spaceIndex);
+  let spaceIndex = string.indexOf(" ");
+  if (string.includes("h")) {
+    if (string.includes(" ")) {
+      let cut = string.slice(0, spaceIndex);
       cut = cut.slice(0, -1);
-      output = Number(cut) * 60;
+      output = cut;
     } else {
-      cut = durationString.slice(0, -1);
-      output = Number(cut) * 60;
-    }
-  } else if (timeUnit === "m") {
-    if (durationString.includes(" ")) {
-      cut = durationString.slice(spaceIndex + 1, durationString.length - 3);
-      output = Number(cut);
-    } else {
-      cut = durationString.slice(0, durationString.length - 3);
+      let cut = string.slice(0, -1);
       output = Number(cut);
     }
+  } else {
+    output = 0;
+  }
+  return output;
+}
+
+function getMinutes(string) {
+  let output;
+  let spaceIndex = string.indexOf(" ");
+  if (string.includes("min")) {
+    if (string.includes(" ")) {
+      let cut = string.slice(spaceIndex + 1, string.length - 3); // Remove the "min" characters
+      output = Number(cut);
+    } else {
+      let cut = string.slice(0, string.length - 3); // Remove the "min" characters
+      output = Number(cut);
+    }
+  } else {
+    output = 0;
   }
   return output;
 }
 
 function getDuration(string) {
-  let hours = decodeDuration(string, "h");
-  let minutes = decodeDuration(string, "m");
+  let hours = getHours(string) * 60;
+  let minutes = getMinutes(string);
   let total = hours + minutes;
   return total;
 }
