@@ -75,38 +75,38 @@ function orderAlphabetically(moviesArray) {
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function getHours(string) {
-  let output;
+  let hours;
   let spaceIndex = string.indexOf(" ");
   if (string.includes("h")) {
     if (string.includes(" ")) {
       let cut = string.slice(0, spaceIndex);
       cut = cut.slice(0, -1);
-      output = cut;
+      hours = cut;
     } else {
       let cut = string.slice(0, -1);
-      output = Number(cut);
+      hours = Number(cut);
     }
   } else {
-    output = 0;
+    hours = 0;
   }
-  return output;
+  return hours;
 }
 
 function getMinutes(string) {
-  let output;
+  let minutes;
   let spaceIndex = string.indexOf(" ");
   if (string.includes("min")) {
     if (string.includes(" ")) {
       let cut = string.slice(spaceIndex + 1, string.length - 3); // Remove the "min" characters
-      output = Number(cut);
+      minutes = Number(cut);
     } else {
       let cut = string.slice(0, string.length - 3); // Remove the "min" characters
-      output = Number(cut);
+      minutes = Number(cut);
     }
   } else {
-    output = 0;
+    minutes = 0;
   }
-  return output;
+  return minutes;
 }
 
 function getDuration(string) {
@@ -117,9 +117,9 @@ function getDuration(string) {
 }
 
 function turnHoursToMinutes(moviesArray) {
-  let outputArr = moviesArray.map((movie) => {
-    let convertedDuration = getDuration(movie.duration);
-    movie.duration = convertedDuration;
+  let outputArr = [...moviesArray];
+  outputArr.map((movie) => {
+    movie.duration = getDuration(movie.duration);
     return movie;
   });
   return outputArr;
